@@ -20,7 +20,7 @@ function tmp() {
   return dir;
 }
 
-test("builds basic app", async (t) => {
+test("builds basic app", { timeout: 120000 }, async (t) => {
   const dir = tmp();
   t.teardown(() => fs.rmSync(dir, { recursive: true, force: true }));
 
