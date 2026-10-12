@@ -13,10 +13,16 @@ test("builds basic app", async (t) => {
   const dir = tmp();
   t.teardown(() => fs.rmSync(dir, { recursive: true, force: true }));
 
-  const entry = path.join(dir, "entry.js");
+  const entry = path.join(dir, "entry.js").replace(/\\/g, "/");
   const pathDir = path.join(dir, "out");
 
   fs.writeFileSync(entry, 'console.log("hello")');
+
+  // Temporary diagnostics for Windows
+  console.log("dir:", JSON.stringify(dir));
+  console.log("entry:", JSON.stringify(entry));
+  console.log("resolved:", JSON.stringify(path.resolve(entry)));
+  console.log("namespaced:", JSON.stringify(path.toNamespacedPath(entry)));
 
   const host = [
     "win32-arm64",
