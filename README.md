@@ -28,14 +28,14 @@ pear-make [flags] <entry>
 
 Builds a standalone Pear CLI app by packaging the JavaScript code at `<entry>`.
 
-| Flag                      | Description                                           |
-| ------------------------- | ----------------------------------------------------- |
-| `--host`                  | host to target (default: the current host)            |
-| `--path`                  | output directory                                      |
-| `--update-window`, `-w`   | wait for update (ms, default 30000)                   |
-| `--no-updates`, `-n`      | disable updates on this run                           |
-| `--version`, `-v`         | version                                               |
-| `--help`, `-h`            | show help                                             |
+| Flag                    | Description                                |
+| ----------------------- | ------------------------------------------ |
+| `--host`                | host to target (default: the current host) |
+| `--path`                | output directory                           |
+| `--update-window`, `-w` | wait for update (ms, default 30000)        |
+| `--no-updates`, `-n`    | disable updates on this run                |
+| `--version`, `-v`       | version                                    |
+| `--help`, `-h`          | show help                                  |
 
 ## Over-the-air Updates
 
