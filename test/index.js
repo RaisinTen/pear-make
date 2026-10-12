@@ -56,7 +56,7 @@ test("builds basic app", async (t) => {
   const currentHost = `${os.platform()}-${os.arch()}`;
   const executable = path.join(pathDir, paths[currentHost]);
 
-  t.ok(executable, `unsupported test host: ${currentHost}`);
+  t.ok(executable, `executable found for host ${currentHost}`);
   t.ok(fs.existsSync(executable), "current host executable exists");
 
   const result = spawnSync(executable, [], {
