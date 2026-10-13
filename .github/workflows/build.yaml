@@ -2,6 +2,13 @@ name: Build and Package
 
 on:
   workflow_dispatch:
+    inputs:
+      run-stage:
+        type: boolean
+        default: false
+      stage-dry-run:
+        type: boolean
+        default: false
 
 jobs:
   build-and-package:
@@ -38,6 +45,15 @@ jobs:
             --target deployment \
             --package package.json
           tar -C deployment -czf by-arch.tar.gz .
+
+      - name: Stage
+        if: ${{ inputs.stage != '' }}
+        uses: holepunchto/actions/pear-ci@3ff649db70c90ceb33f6fb3f4132e74f0a97f3a7
+        with:
+          namespace: production
+          primary-key: ${{ secrets.PEAR_PRIMARY_KEY }}
+          target: ./deployment
+          dry-run: ${{ inputs.stage-dry-run }}
 
       - name: Upload by-arch
         uses: actions/upload-artifact@v4

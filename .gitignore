@@ -1,4 +1,6 @@
 node_modules/
 dist/
 out/
+deployment/
+by-arch.tar.gz
 .DS_Store
