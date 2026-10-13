@@ -61,41 +61,15 @@ The `start` script passes `--no-updates` so local builds aren't swapped out whil
 
 ```sh
 npm run make                 # auto-detect host os/arch
+npm run make:win32-arm64
+npm run make:win32-x64
+npm run make:darwin-arm64
+npm run make:darwin-x64
+npm run make:linux-arm64
+npm run make:linux-x64
 ```
 
 Targets: `darwin-arm64`, `darwin-x64`, `linux-arm64`, `linux-x64`, `win32-arm64`, `win32-x64`. Output goes to `out/<platform>-<arch>`.
-
-## Deployment
-
-When a SemVer git tag is pushed to the repo, GitHub workflows creates builds and pushes them to releases as a tarball.
-
-The tarball is downloaded & extracted (`sh scripts/get-releases`) and then deployed with `pear`.
-
-```
-pear stage pear://TODO
-```
-
-```
-pear provision pear://TODO
-```
-
-```
-pear multisig request pear://TODO
-```
-
-```
-pear multisig sign TODO
-```
-
-```
-pear multisig verify pear://TODO
-```
-
-```
-pear multisig commit pear://TODO
-```
-
-Apart from the production pear://make.. link the pear links here are examples. Same goes for multisig request/responses.
 
 ## License
 
