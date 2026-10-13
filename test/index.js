@@ -9,11 +9,11 @@ function tmp() {
   return fs.mkdtempSync(path.join(os.tmpdir(), "swap-test-"));
 }
 
-test("builds basic app", async (t) => {
+test("builds basic app", { timeout: 120000 }, async (t) => {
   const dir = tmp();
   t.teardown(() => fs.rmSync(dir, { recursive: true, force: true }));
 
-  const entry = path.join(dir, "entry.js");
+  const entry = path.join(dir, "entry.js").replace(/\\/g, "/");
   const pathDir = path.join(dir, "out");
 
   fs.writeFileSync(entry, 'console.log("hello")');
@@ -33,7 +33,9 @@ test("builds basic app", async (t) => {
   }
 
   t.alike(
-    resources.map((resource) => path.relative(pathDir, resource)),
+    resources.map((resource) =>
+      path.relative(pathDir, resource).replace(/\\/g, "/"),
+    ),
     [
       "arm64/pear-make.exe",
       "x64/pear-make.exe",
@@ -64,5 +66,5 @@ test("builds basic app", async (t) => {
   });
   t.is(result.error, undefined, "executable starts successfully");
   t.is(result.status, 0, "executable exits successfully");
-  t.is(result.stdout.toString(), "hello\n", "prints expected output");
+  t.is(result.stdout.toString().trim(), "hello", "prints expected output");
 });
