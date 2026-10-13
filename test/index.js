@@ -6,18 +6,7 @@ const { spawnSync } = require("bare-subprocess");
 const App = require("../app.js");
 
 function tmp() {
-  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "swap-test-"));
-
-  // Strip the Windows extended-length path prefix.
-  if (dir.startsWith("\\\\?\\UNC\\")) {
-    return "\\\\" + dir.slice(8);
-  }
-
-  if (dir.startsWith("\\\\?\\")) {
-    return dir.slice(4);
-  }
-
-  return dir;
+  return fs.mkdtempSync(path.join(os.tmpdir(), "swap-test-"));
 }
 
 test("builds basic app", { timeout: 120000 }, async (t) => {
@@ -28,12 +17,6 @@ test("builds basic app", { timeout: 120000 }, async (t) => {
   const pathDir = path.join(dir, "out");
 
   fs.writeFileSync(entry, 'console.log("hello")');
-
-  // Temporary diagnostics for Windows
-  console.log("dir:", JSON.stringify(dir));
-  console.log("entry:", JSON.stringify(entry));
-  console.log("resolved:", JSON.stringify(path.resolve(entry)));
-  console.log("namespaced:", JSON.stringify(path.toNamespacedPath(entry)));
 
   const host = [
     "win32-arm64",
